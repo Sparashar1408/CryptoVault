@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoVault</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/fontawesome/css/all.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="max">
+  <img src="./icon.png" class="rounded mx-auto d-block logo" alt="logo">
+
+  <div class="alert alert-success" role="alert"></div>
+  <div class="alert alert-danger" role="alert"></div>
+
+  <!-- Set master pass screen -->
+  <div class="jumbotron jumbotron-fluid" id="showSetMasterPass">
+    <div class="container">
+      <div class="form-group">
+        <label for="masterPassInput">Set up your Master Password</label>
+        <input type="password" class="form-control" id="setMasterPassInput" placeholder=" Master Password">
+        <small id="masterPassHelp" class="form-text text-muted">Password should have atleast 8 character contaning uppercase, lowercase, numeric and special characters.</small>
+        <small id="masterPassHelp" class="form-text text-muted">Always remember this master password.</small>
+        <small id="masterPassHelp" class="form-text text-muted">You won't be able to get your stored password in case you forgot master password.</small>
+      </div>
+      <button class="btn btn-primary" id="setMasterPassSubmit">Submit</button>
+    </div>
+  </div>
+  <!-- Set master pass screen ends -->
+
+  <!-- Enter master pass screen -->
+  <div class="jumbotron jumbotron-fluid max" id="showEnterMasterPass">
+    <div class="container">
+      <div class="form-group">
+        <input type="password" class="form-control" id="enterMasterPassInput" placeholder="Enter Master Password">
+      </div>
+      <button class="btn btn-primary" id="enterMasterPassSubmit">Submit</button>
+    </div>
+  </div>
+  <!-- Enter master pass screen ends-->
+
+  <!-- Password list screen -->
+  <div class="jumbotron jumbotron-fluid max" id="showPasswordList">
+    <div class="container">
+      <div class="form-group">
+        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addNewPassModal">
+          Add new
+        </button>
+        <div id="passwords"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Password list screen ends -->
+
+  <!-- Add new password modal -->
+  <div class="modal" tabindex="-1" role="dialog" id="addNewPassModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newPassName">Name</label>
+            <input type="text" class="form-control" id="newPassName">
+          </div>
+          <div class="form-group">
+            <label for="newPassWebsite">Website</label>
+            <input type="text" class="form-control" id="newPassWebsite">
+          </div>
+          <div class="form-group">
+            <label for="newPassUsername">Username</label>
+            <input type="username" class="form-control" id="newPassUsername">
+          </div>
+          <div class="form-group">
+            <label for="newPassPassword">Password</label>
+            <input type="password" class="form-control" id="newPassPassword">
+          </div>
+          <div class="form-group">
+            <label for="masterPassword">Master Password</label>
+            <input type="password" class="form-control" id="masterPassword">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveNewPass">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add new password modal ends -->
+
+  <!-- Edit password modal -->
+  <div class="modal" tabindex="-1" role="dialog" id="editPassModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="editPassName">Name</label>
+            <input type="text" class="form-control" id="editPassName" readonly>
+          </div>
+          <div class="form-group">
+            <label for="editPassWebsite">Website</label>
+            <input type="text" class="form-control" id="editPassWebsite">
+          </div>
+          <div class="form-group">
+            <label for="editPassUsername">Username</label>
+            <input type="username" class="form-control" id="editPassUsername">
+          </div>
+          <div class="form-group">
+            <label for="editPassPassword">Password</label>
+            <input type="password" class="form-control" id="editPassPassword" placeholder="Enter new password">
+          </div>
+          <div class="form-group">
+            <label for="masterPasswordEdit">Master Password</label>
+            <input type="password" class="form-control" id="masterPasswordEdit">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveEditPass">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit password modal ends -->
+
+  <!-- Verify master pass modal for copy password -->
+  <div class="modal" tabindex="-1" role="dialog" id="copyPassVerify">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Verify master password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="verifymasterPassword">Master Password</label>
+            <input type="password" class="form-control" id="verifyMasterPassword">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="verifyMasterPasswordButton">Verify</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Verify master pass modal for copy password ends -->
+
+  <!-- Delete pass modal -->
+  <div class="modal" tabindex="-1" role="dialog" id="deletePassVerify">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Verify master password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="deletemasterPassword">Master Password</label>
+            <input type="password" class="form-control" id="deleteMasterPassword">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="deletePasswordButton">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete pass modal ends -->
+
+  <!-- Scripts section -->
+  <script src="./js/jquery-3.5.0.min.js"></script>
+  <script src="./js/jquery.validate.min.js"></script>
+  <script src="./js/popper.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/sha256.js"></script>
+  <script src="./js/aes.js"></script>
+  <script src="./js/popup.js"></script>
+</body>
+
+</html>
